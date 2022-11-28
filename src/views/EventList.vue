@@ -7,47 +7,23 @@
 
 <script>
 import EventCard from '@/components/EventCard.vue';
+import EventService from '@/services/EventService';
 
 export default {
-  name: 'HomeView',
+  name: 'EventList',
   components: {
     EventCard,
   },
   data() {
     return {
-      events: [
-        {
-          id: 100,
-          category: 'Animal Welfare',
-          title: 'Cat Adaoption Day',
-          description: 'Find your new friend',
-          location: 'Meow Town',
-          date: '24th Nov 2022',
-          time: '12.00 PM',
-          petsAllowed: true,
-        },
-        {
-          id: 101,
-          category: 'Community',
-          title: 'Community Gardening',
-          description: 'Find your new friend',
-          location: 'Meow Town',
-          date: '25th Nov 2022',
-          time: '12.00 PM',
-          petsAllowed: true,
-        },
-        {
-          id: 101,
-          category: 'Watering',
-          title: 'Watering plants',
-          description: 'Find your new friend',
-          location: 'Meow Town',
-          date: '25th Nov 2022',
-          time: '12.00 PM',
-          petsAllowed: true,
-        },
-      ],
+      events: null,
+      error: null,
     };
+  },
+  created() {
+    EventService.getEvents()
+      .then((response) => (this.events = response.data))
+      .catch((error) => (this.error = error));
   },
 };
 </script>
